@@ -47,7 +47,8 @@ Update the your hosts
 
 Scale
 ```
-    docker-compose -f docker/docker-compose.yml down scale ${container-name}
+    # DEPRECATED
+    docker-compose -f docker/docker-compose.yml scale ${container-name}
 ```
 
 Access
