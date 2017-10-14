@@ -1,0 +1,77 @@
+version: '2'
+
+services:
+  proxy:
+    image: traefik
+    command: --web --docker --docker.domain=lm.dev --docker.exposedbydefault=false --logLevel=DEBUG
+    networks:
+      - webgateway
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
+
+  order:
+    build:
+      context: order/php-apache
+    volumes:
+      - ../order:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:order.lm.dev"
+      - "traefik.backend=order"
+    networks:
+      - webgateway
+      - web
+    restart: always
+
+  user:
+    build:
+      context: user/php-apache
+    volumes:
+      - ../user:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:user.lm.dev"
+      - "traefik.backend=user"
+    networks:
+      - webgateway
+      - web
+    restart: always
+
+  inventory:
+    build:
+      context: inventory/php-apache
+    volumes:
+      - ../inventory:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:inventory.lm.dev"
+      - "traefik.backend=inventory"
+    networks:
+      - webgateway
+      - web
+    restart: always
+
+  api:
+    build:
+      context: api-gateway/php-apache
+    volumes:
+      - ../api-gateway:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:api.lm.dev"
+      - "traefik.backend=api"
+    networks:
+      - webgateway
+      - web
+    restart: always
+
+networks:
+  webgateway:
+    driver: bridge
+  web:
+    external:
+      name: traefik_webgateway
