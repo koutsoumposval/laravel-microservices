@@ -17,7 +17,7 @@ It holds 3 orders hardcoded in the `OrderController`:
 
 Endpoints
 -----------
-There are 2 endpoints which are returning JSON Responses.
+There are 3 endpoints which are returning JSON Responses.
 
 ```
    # Returns all orders
@@ -27,4 +27,8 @@ There are 2 endpoints which are returning JSON Responses.
    # or returns 404 'Order not found'
    # if order does not exist
    GET /order/{id}
+   
+   # Returns all orders of a spesific user
+   # or returns 404 'No orders found for this user'
+   GET /order/user/{user}
 ```
