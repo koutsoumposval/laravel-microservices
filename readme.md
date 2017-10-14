@@ -73,3 +73,8 @@ You can access Traefik interface from:
     lm.dev:8080
 ```
 
+Isolate Web Services
+------------
+Removing the `traefik.frontend.rule` from the Web services will make
+them accesible only from the API gateway (traefik backend network)
+
