@@ -1,30 +1,37 @@
-# Simple order web service
+# API Gateway
 
-A simple order web service build on Laravel Lumen.
+A simple web API gateway build on Laravel Lumen.
 
-This web service is part of the `koutsoumposval/laravel-microservices` demo project
-
-Data
------------
-It holds 3 orders hardcoded in the `OrderController`:
-```php
-    [
-        "1" => ["user" => "1", "products" => ["1", "2"]],
-        "2" => ["user" => "1", "products" => ["3"] ],
-        "3" => ["user" => "2", "products" => ["1", "3"]],
-    ]
-```
+This application is part of the `koutsoumposval/laravel-microservices` demo project
 
 Endpoints
 -----------
-There are 2 endpoints which are returning JSON Responses.
+There is 1 endpoint which is returning JSON Responses.
 
 ```
-   # Returns all orders
-   GET /order 
-   
-   # Returns spesific order by id
-   # or returns 404 'Order not found'
-   # if order does not exist
-   GET /order/{id}
+   # Returns all orders by a user id
+   # or returns 404 'User not found'
+   # or returns 404 'No orders found for this user'
+   GET user/{id}/orders
+```
+
+Example Response
+-----------
+```
+    # GET user/1/orders
+    {
+        "user": {
+            "id": "1",
+            "name": "User 1"
+        },
+        "orders": {
+            "1": {
+                "1": "Product 1",
+                "2": "Product 2"
+            },
+            "2": {
+                "3": "Product 3"
+            }
+        }
+    }
 ```
