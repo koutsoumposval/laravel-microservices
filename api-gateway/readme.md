@@ -4,6 +4,19 @@ A simple web API gateway build on Laravel Lumen.
 
 This application is part of the `koutsoumposval/laravel-microservices` demo project
 
+Setup
+-----------
+#### Install vendor dependencies with Composer
+Navigate to service's root directory:
+```bash
+cd api-gateway/
+```
+
+To install all composer dependencies, run the following command:
+```bash
+docker run --rm -v $(PWD):/app -v $($HOME)/.composer:/composer --user $(id -u):$(id -g) composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
+```
+
 Endpoints
 -----------
 There is 1 endpoint which is returning JSON Responses.
@@ -18,7 +31,7 @@ There is 1 endpoint which is returning JSON Responses.
 Example Response
 -----------
 ```
-    # GET user/1/orders
+    # GET http://api.lm.local/user/1/orders
     {
         "user": {
             "id": "1",

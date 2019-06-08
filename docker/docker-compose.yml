@@ -1,9 +1,9 @@
-version: '2'
+version: '3'
 
 services:
   proxy:
     image: traefik
-    command: --web --docker --docker.domain=lm.dev --docker.exposedbydefault=false --logLevel=DEBUG
+    command: --web --docker --docker.domain=lm.local --docker.exposedbydefault=false --logLevel=DEBUG
     networks:
       - webgateway
     ports:
@@ -20,7 +20,7 @@ services:
       - ../order:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:order.lm.dev"
+      - "traefik.frontend.rule=Host:order.lm.local"
       - "traefik.backend=order"
     networks:
       - webgateway
@@ -34,7 +34,7 @@ services:
       - ../user:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:user.lm.dev"
+      - "traefik.frontend.rule=Host:user.lm.local"
       - "traefik.backend=user"
     networks:
       - webgateway
@@ -48,7 +48,7 @@ services:
       - ../inventory:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:inventory.lm.dev"
+      - "traefik.frontend.rule=Host:inventory.lm.local"
       - "traefik.backend=inventory"
     networks:
       - webgateway
@@ -62,7 +62,7 @@ services:
       - ../api-gateway:/var/www/html
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:api.lm.dev"
+      - "traefik.frontend.rule=Host:api.lm.local"
       - "traefik.backend=api"
     networks:
       - webgateway
